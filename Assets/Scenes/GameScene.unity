@@ -4947,7 +4947,7 @@ Transform:
   m_GameObject: {fileID: 413820402}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -10.382636, y: -6.4255157, z: -0.092058145}
+  m_LocalPosition: {x: -9, y: -3.43, z: -0.09}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4989,7 +4989,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.04823338, g: 0, b: 0.7830189, a: 0}
+  m_BackGroundColor: {r: 0.016954426, g: 0.012014951, b: 0.09433961, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -5107,8 +5107,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.9150943, g: 0.70154315, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 4e2a69351af044994b453ddb77c473a6, type: 3}
+  m_Color: {r: 0.7669677, g: 0.8113208, b: 0.21048418, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -5128,7 +5128,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -9.01, y: -2.8, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -5282,7 +5282,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.990566, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.8962264, g: 0.7876265, b: 0.6637148, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -5714,6 +5714,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4484803104014778380, guid: 6d8e0c93168ac4f809d0d1fd0467dcd0, type: 3}
+      propertyPath: circlePrefab
+      value: 
+      objectReference: {fileID: 1351151824}
     - target: {fileID: 8325774581028493666, guid: 6d8e0c93168ac4f809d0d1fd0467dcd0, type: 3}
       propertyPath: m_Name
       value: Trajectory

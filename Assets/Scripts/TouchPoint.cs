@@ -1,5 +1,3 @@
-// 2023-12-13 AI-Tag 
-// This was created with assistance from Muse, a Unity Artificial Intelligence product
 using UnityEngine;
 
 public class TouchPoint : MonoBehaviour
@@ -33,13 +31,12 @@ public class TouchPoint : MonoBehaviour
         else if (Input.GetMouseButtonDown(0))
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                circlePrefab.SetActive(true);
+            circlePrefab.SetActive(true);
             circlePrefab.transform.position = mousePosition;
         }
         else if (Input.GetMouseButtonUp(0))
         {
             circlePrefab.SetActive(false);
         }
-
     }
 }
