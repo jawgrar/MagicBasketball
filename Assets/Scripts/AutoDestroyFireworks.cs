@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-public class AutoDestroyParticleSystem : MonoBehaviour
+public class AutoDestroyFireworks : MonoBehaviour
 {
     private ParticleSystem ps; // Particle system reference[^2^]
 
