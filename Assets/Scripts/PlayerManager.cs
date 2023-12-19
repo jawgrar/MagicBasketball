@@ -4,20 +4,26 @@ public class PlayerManager : MonoBehaviour
 {
     private Rigidbody2D playerRigidbody;
     private Vector2 originalPosition;
-    private bool isPlayerBack;
+    private Vector2 originalTouchPosition;
+    private bool isPlayerBack = true;
     public float forceMagnitude = 700f;
     public GameObject explosionEffect;
+    public LineRenderer lineRenderer;
+    public GameObject touchPoint;
+    
 
     void Start()
     {
         originalPosition = transform.position;
         playerRigidbody = gameObject.GetComponent<Rigidbody2D>();
+        originalTouchPosition = touchPoint.transform.position;
     }
 
     void Update()
     {
         CheckPlayerPosition();
-        ProcessInput();        
+        ProcessInput();
+        DrawLineToTrajectory();
     }
 
     void CheckPlayerPosition()
@@ -26,6 +32,7 @@ public class PlayerManager : MonoBehaviour
         if (viewportPosition.x < 0 || viewportPosition.x > 1 || viewportPosition.y < 0)
         {
             transform.position = originalPosition;
+            touchPoint.transform.position = originalTouchPosition;
             isPlayerBack = true;
 
         }
@@ -34,6 +41,8 @@ public class PlayerManager : MonoBehaviour
             playerRigidbody.gravityScale = 0;
             playerRigidbody.velocity = Vector2.zero;
         }
+
+        touchPoint.SetActive(isPlayerBack);
     }
 
     void ProcessInput()
@@ -64,9 +73,9 @@ public class PlayerManager : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Square"))
+        if (other.gameObject.CompareTag("Basket"))
         {
-            ScoreManager.score += 1;
+            ScoreManager.Update();
             ExplodePlayer();
         }
     }
@@ -74,6 +83,20 @@ public class PlayerManager : MonoBehaviour
     void ExplodePlayer()
     {
         GameObject explosionInstance = Instantiate(explosionEffect, transform.position, Quaternion.identity);
-        explosionInstance.AddComponent<AutoDestroyParticleSystem>();
+        explosionInstance.AddComponent<AutoDestroyFireworks>();
     }
+
+    void DrawLineToTrajectory()
+{
+    if (touchPoint.activeInHierarchy)
+    {
+        lineRenderer.enabled = true;
+        lineRenderer.SetPosition(0, transform.position);
+        lineRenderer.SetPosition(1, touchPoint.transform.position);
+    }
+    else
+    {
+        lineRenderer.enabled = false;
+    }
+}
 }

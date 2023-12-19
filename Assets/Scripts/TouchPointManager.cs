@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TouchPoint : MonoBehaviour
+public class TouchPointManager : MonoBehaviour
 {
     public GameObject circlePrefab;
 
