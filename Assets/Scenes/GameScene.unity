@@ -5111,7 +5111,7 @@ GameObject:
   - component: {fileID: 570751794}
   - component: {fileID: 570751795}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Ball
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6005,11 +6005,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9173710296251046926, guid: 6d8e0c93168ac4f809d0d1fd0467dcd0, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 9173710296251046926, guid: 6d8e0c93168ac4f809d0d1fd0467dcd0, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 9173710296251046926, guid: 6d8e0c93168ac4f809d0d1fd0467dcd0, type: 3}
       propertyPath: m_LocalPosition.x
