@@ -1,8 +1,15 @@
- public static class ScoreManager
-{
-    public static int score;
+using UnityEngine;
 
-    public static void Start()
+public static class ScoreManager
+{
+    private static int score;
+
+    public static int GetScore()
+    {
+        return score;
+    }
+
+    public static void Reset()
     {
         score = 0;
     }

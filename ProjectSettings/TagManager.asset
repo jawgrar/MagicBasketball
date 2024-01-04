@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Basket
   - GameManager
+  - GameOverPanel
+  - ScoreTimerPanel
+  - Timer
+  - Score
   layers:
   - Default
   - TransparentFX
