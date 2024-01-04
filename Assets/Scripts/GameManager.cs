@@ -1,4 +1,4 @@
-using System;
+
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,8 +10,6 @@ public class GameManager : MonoBehaviour
     public bool isGameOver = false;
     public float timerDuration = 10f;
 
-    // TODO: implement a TimerManager class
-    private float timer;
     private TMP_Text scoreText;
     private TMP_Text timerText;
     private GameObject player;
@@ -63,18 +61,16 @@ public class GameManager : MonoBehaviour
 
     private void Reset()
     {
-        Debug.Log("GameManager Reset");
-
         // reset flags
         _gameEnded = false;
         isGameStarted = false;
         isGameOver = false;
-        timer = timerDuration;
 
         // reset UI
         ScoreManager.Reset();
         scoreText.text = ScoreManager.GetScore().ToString("0000");
-        timerText.text = timer.ToString("00");
+        TimerManager.Reset(timerDuration);
+        timerText.text = TimerManager.GetTimer().ToString("00");
 
         // reset game objects
         player.GetComponent<PlayerManager>().ResetFirstMove();
@@ -86,25 +82,27 @@ public class GameManager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // gams started then ended. waiting for player to restart
+        if (_gameEnded == true) return;
+
         // initial game state
-        if (isGameStarted == false && isGameOver == false && _gameEnded == false)
+        if (isGameStarted == false && isGameOver == false)
         {
             isGameStarted = player.GetComponent<PlayerManager>().MadeFirstMove();
         }
         // game started
-        if (isGameStarted == true && isGameOver == false && _gameEnded == false)
+        if (isGameStarted == true && isGameOver == false)
         {
-            timer -= Time.deltaTime;
-            timerText.text = timer.ToString("00");
+            timerText.text = TimerManager.GetTimer().ToString("00");
             scoreText.text = ScoreManager.GetScore().ToString("0000");
 
-            if (timer <= 0)
+            if (TimerManager.IsTimeUp())
             {
                 isGameOver = true;
             }
         }
         // game over
-        if (isGameStarted == true && isGameOver == true && _gameEnded == false)
+        if (isGameStarted == true && isGameOver == true)
         {
             EndGame();
             _gameEnded = true;
