@@ -1,3 +1,4 @@
+
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -5,14 +6,18 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; } // Singleton instance
-
-    public int score = 0;
-    public TMP_Text scoreText;
-    public float timer = 20f;
-    public TMP_Text timerText;
     public bool isGameStarted = false;
     public bool isGameOver = false;
-    public GameObject player;
+    public float timerDuration = 10f;
+
+    private TMP_Text scoreText;
+    private TMP_Text timerText;
+    private GameObject player;
+    private GameObject target;
+    private GameObject gameOverPanel;
+
+    private bool _gameActive = false;
+
     private void Awake()
     {
         // Singleton pattern implementation
@@ -25,52 +30,89 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    private void Start() {
-        scoreText.text = score.ToString("0000");
-        timerText.text = timer.ToString("00");;
+    private void OnDestroy()
+    {
+        // Unsubscribe when the object is destroyed
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "GameScene")
+        {
+            FindGameObjects();
+            InitiateGame();
+        }
+    }
+
+    private void FindGameObjects()
+    {
+        // find game objects
+        player = GameObject.FindGameObjectWithTag("Player");
+        target = GameObject.FindGameObjectWithTag("Basket");
+        gameOverPanel = GameObject.FindGameObjectWithTag("GameOverPanel");
+        scoreText = GameObject.FindGameObjectWithTag("Score").GetComponent<TMP_Text>();
+        timerText = GameObject.FindGameObjectWithTag("Timer").GetComponent<TMP_Text>();
+    }
+
+    private void InitiateGame()
+    {
+        // reset flags
+        _gameActive = true;
+        isGameStarted = false;
+        isGameOver = false;
+
+        // reset UI
+        ScoreManager.Reset();
+        scoreText.text = ScoreManager.GetScore().ToString("0000");
+        TimerManager.Reset(timerDuration);
+        timerText.text = TimerManager.GetTimer().ToString("00");
+
+        // reset game objects
+        player.GetComponent<PlayerManager>().ResetFirstMove();
+        player.SetActive(true);
+        target.SetActive(true);
+        if (gameOverPanel != null)
+            gameOverPanel.SetActive(false);
     }
 
     private void FixedUpdate()
     {
-        if(timer <= 0) {
-            isGameOver = true;
-        }
+        // gams started then ended. waiting for player to restart
+        if (_gameActive == false) return;
 
-        if(isGameStarted == false && isGameOver == false) {
-            StartGame();
-        }
-        else if(isGameStarted == true && isGameOver == false)
+        // initial game state
+        if (isGameStarted == false && isGameOver == false)
         {
-            timer -= Time.deltaTime;
-            timerText.text = timer.ToString("00");
-            scoreText.text = ScoreManager.score.ToString("0000");
+            isGameStarted = player.GetComponent<PlayerManager>().MadeFirstMove();
         }
-        else if (isGameOver == true)
+        // game started
+        if (isGameStarted == true && isGameOver == false)
+        {
+            timerText.text = TimerManager.GetTimer().ToString("00");
+            scoreText.text = ScoreManager.GetScore().ToString("0000");
+
+            if (TimerManager.IsTimeUp())
+            {
+                isGameOver = true;
+            }
+        }
+        // game over
+        if (isGameStarted == true && isGameOver == true)
         {
             EndGame();
         }
     }
 
-    // Use this method to begin the game
-    public void StartGame()
+    private void EndGame()
     {
-        if(Input.touchCount > 0 || Input.GetMouseButton(0))
-        {
-            isGameStarted = true;
-            ScoreManager.Start();
-        }
-    }
-
-    public void RestartGame()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
-    public void EndGame()
-    {
-        isGameStarted = false;   
         player.SetActive(false);
+        target.SetActive(false);
+        gameOverPanel.SetActive(true);
+        _gameActive = false;
     }
 }

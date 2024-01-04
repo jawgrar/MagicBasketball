@@ -1,8 +1,13 @@
- public static class ScoreManager
+public static class ScoreManager
 {
-    public static int score;
+    private static int score;
 
-    public static void Start()
+    public static int GetScore()
+    {
+        return score;
+    }
+
+    public static void Reset()
     {
         score = 0;
     }

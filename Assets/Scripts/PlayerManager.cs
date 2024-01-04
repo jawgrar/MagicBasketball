@@ -6,11 +6,12 @@ public class PlayerManager : MonoBehaviour
     private Vector2 originalPosition;
     private Vector2 originalTouchPosition;
     private bool isPlayerBack = true;
+    private bool isPlayerMoved = false;
+
     public float forceMagnitude = 700f;
     public GameObject explosionEffect;
     public LineRenderer lineRenderer;
     public GameObject touchPoint;
-    
 
     void Start()
     {
@@ -54,16 +55,21 @@ public class PlayerManager : MonoBehaviour
             {
                 ApplyForce(touch.position);
             }
-        } 
+        }
         else if (Input.GetMouseButtonUp(0))
         {
             ApplyForce(Input.mousePosition);
-        } 
+        }
     }
 
     // Apply force to player
     void ApplyForce(Vector2 touchPos)
     {
+        if (!isPlayerMoved)
+        {
+            isPlayerMoved = true;
+        }
+
         playerRigidbody.gravityScale = 1;
         isPlayerBack = false;
 
@@ -79,7 +85,7 @@ public class PlayerManager : MonoBehaviour
             ExplodePlayer();
         }
     }
-    
+
     void ExplodePlayer()
     {
         GameObject explosionInstance = Instantiate(explosionEffect, transform.position, Quaternion.identity);
@@ -87,16 +93,26 @@ public class PlayerManager : MonoBehaviour
     }
 
     void DrawLineToTrajectory()
-{
-    if (touchPoint.activeInHierarchy)
     {
-        lineRenderer.enabled = true;
-        lineRenderer.SetPosition(0, transform.position);
-        lineRenderer.SetPosition(1, touchPoint.transform.position);
+        if (touchPoint.activeInHierarchy)
+        {
+            lineRenderer.enabled = true;
+            lineRenderer.SetPosition(0, transform.position);
+            lineRenderer.SetPosition(1, touchPoint.transform.position);
+        }
+        else
+        {
+            lineRenderer.enabled = false;
+        }
     }
-    else
+
+    public bool MadeFirstMove()
     {
-        lineRenderer.enabled = false;
+        return isPlayerMoved;
     }
-}
+
+    public void ResetFirstMove()
+    {
+        isPlayerMoved = false;
+    }
 }
