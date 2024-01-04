@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     private GameObject target;
     private GameObject gameOverPanel;
 
-    private bool _gameEnded = false;
+    private bool _gameActive = false;
 
     private void Awake()
     {
@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
         if (scene.name == "GameScene")
         {
             FindGameObjects();
-            Reset();
+            InitiateGame();
         }
     }
 
@@ -59,10 +59,10 @@ public class GameManager : MonoBehaviour
         timerText = GameObject.FindGameObjectWithTag("Timer").GetComponent<TMP_Text>();
     }
 
-    private void Reset()
+    private void InitiateGame()
     {
         // reset flags
-        _gameEnded = false;
+        _gameActive = true;
         isGameStarted = false;
         isGameOver = false;
 
@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
     private void FixedUpdate()
     {
         // gams started then ended. waiting for player to restart
-        if (_gameEnded == true) return;
+        if (_gameActive == false) return;
 
         // initial game state
         if (isGameStarted == false && isGameOver == false)
@@ -105,7 +105,6 @@ public class GameManager : MonoBehaviour
         if (isGameStarted == true && isGameOver == true)
         {
             EndGame();
-            _gameEnded = true;
         }
     }
 
@@ -114,5 +113,6 @@ public class GameManager : MonoBehaviour
         player.SetActive(false);
         target.SetActive(false);
         gameOverPanel.SetActive(true);
+        _gameActive = false;
     }
 }
