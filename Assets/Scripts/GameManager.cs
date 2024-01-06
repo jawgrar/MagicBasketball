@@ -9,14 +9,19 @@ public class GameManager : MonoBehaviour
     public bool isGameStarted = false;
     public bool isGameOver = false;
     public float timerDuration = 10f;
-
+    public AudioClip musicClip;
+    private AudioSource musicSource;
     private TMP_Text scoreText;
     private TMP_Text timerText;
     private GameObject player;
     private GameObject target;
     private GameObject gameOverPanel;
-
     private bool _gameActive = false;
+
+    private void Start()
+    {
+        SetDefaultPlayerPrefs();
+    }
 
     private void Awake()
     {
@@ -36,7 +41,6 @@ public class GameManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        // Unsubscribe when the object is destroyed
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
@@ -46,6 +50,36 @@ public class GameManager : MonoBehaviour
         {
             FindGameObjects();
             InitiateGame();
+            PlayMusic();
+        }
+    }
+
+    void SetDefaultPlayerPrefs()
+    {
+        if (!PlayerPrefs.HasKey("Volume"))
+        {
+            PlayerPrefs.SetFloat("Volume", 1.0f);
+        }
+
+        if (!PlayerPrefs.HasKey("Music"))
+        {
+            PlayerPrefs.SetInt("Music", 1);
+        }
+    }
+
+    void PlayMusic()
+    {
+        Debug.Log("PlayMusic");
+        musicSource.clip = musicClip;
+
+        if (PlayerPrefs.GetInt("Music") == 1)
+        {
+            musicSource.volume = PlayerPrefs.GetFloat("Volume", 1);
+            musicSource.Play();
+        }
+        else
+        {
+            musicSource.Stop();
         }
     }
 
@@ -57,6 +91,7 @@ public class GameManager : MonoBehaviour
         gameOverPanel = GameObject.FindGameObjectWithTag("GameOverPanel");
         scoreText = GameObject.FindGameObjectWithTag("Score").GetComponent<TMP_Text>();
         timerText = GameObject.FindGameObjectWithTag("Timer").GetComponent<TMP_Text>();
+        musicSource = GameObject.FindGameObjectWithTag("Music1").GetComponent<AudioSource>();
     }
 
     private void InitiateGame()
@@ -73,7 +108,7 @@ public class GameManager : MonoBehaviour
         timerText.text = TimerManager.GetTimer().ToString("00");
 
         // reset game objects
-        player.GetComponent<PlayerManager>().ResetFirstMove();
+        player.GetComponent<PlayerController>().ResetFirstMove();
         player.SetActive(true);
         target.SetActive(true);
         if (gameOverPanel != null)
@@ -88,7 +123,7 @@ public class GameManager : MonoBehaviour
         // initial game state
         if (isGameStarted == false && isGameOver == false)
         {
-            isGameStarted = player.GetComponent<PlayerManager>().MadeFirstMove();
+            isGameStarted = player.GetComponent<PlayerController>().MadeFirstMove();
         }
         // game started
         if (isGameStarted == true && isGameOver == false)

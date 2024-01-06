@@ -10,6 +10,7 @@ TagManager:
   - ScoreTimerPanel
   - Timer
   - Score
+  - Music1
   layers:
   - Default
   - TransparentFX

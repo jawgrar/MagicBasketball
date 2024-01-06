@@ -5,28 +5,25 @@ using UnityEngine.UI;
 public class SettingsController : MonoBehaviour
 {
     public Toggle musicToggle;
-    public AudioClip musicClip;
-
-    public AudioSource musicSource;
+    public Slider volumeSlider;
 
     void Start()
     {
-        musicSource.clip = musicClip;
         musicToggle.onValueChanged.AddListener(delegate { ToggleMusic(musicToggle); });
+        volumeSlider.onValueChanged.AddListener(delegate { ChangeVolume(volumeSlider); });
+
+        volumeSlider.value = PlayerPrefs.GetFloat("Volume", 1);
+        musicToggle.isOn = PlayerPrefs.GetInt("Music", 1) == 1;
     }
 
     void ToggleMusic(Toggle change)
     {
-        Debug.Log(change.name + " was toggled to: " + change.isOn);
+        PlayerPrefs.SetInt("Music", change.isOn ? 1 : 0);
+    }
 
-        if (musicToggle.isOn)
-        {
-            musicSource.Play();
-        }
-        else
-        {
-            musicSource.Stop();
-        }
+    void ChangeVolume(Slider slider)
+    {
+        PlayerPrefs.SetFloat("Volume", slider.value);
     }
 
     public void OpenMenu()
