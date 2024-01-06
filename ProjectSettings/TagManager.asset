@@ -11,6 +11,7 @@ TagManager:
   - Timer
   - Score
   - Music1
+  - ScoreCollider
   layers:
   - Default
   - TransparentFX

@@ -5926,7 +5926,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4821538798971561761, guid: ea550fbf3c5f644a29cd899e456ccf3f, type: 3}
       propertyPath: m_TagString
-      value: Basket
+      value: ScoreCollider
       objectReference: {fileID: 0}
     - target: {fileID: 5564950058107847211, guid: ea550fbf3c5f644a29cd899e456ccf3f, type: 3}
       propertyPath: m_Name
@@ -5934,7 +5934,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5564950058107847211, guid: ea550fbf3c5f644a29cd899e456ccf3f, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Basket
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
