@@ -5129,11 +5129,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
---- !u!120 &479188663 stripped
-LineRenderer:
-  m_CorrespondingSourceObject: {fileID: 8001333265557004702, guid: 46e0b2377f62543bc8200ac1e44d52e2, type: 3}
-  m_PrefabInstance: {fileID: 3628581925109513520}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -5226,6 +5221,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!120 &744377687 stripped
+LineRenderer:
+  m_CorrespondingSourceObject: {fileID: 7598613983055498714, guid: 839e480477c9b42de96007bc4ca6c157, type: 3}
+  m_PrefabInstance: {fileID: 1197057494}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &746399914
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5362,7 +5362,7 @@ PrefabInstance:
     - target: {fileID: 438526095678376146, guid: 839e480477c9b42de96007bc4ca6c157, type: 3}
       propertyPath: lineRenderer
       value: 
-      objectReference: {fileID: 479188663}
+      objectReference: {fileID: 744377687}
     - target: {fileID: 438526095678376146, guid: 839e480477c9b42de96007bc4ca6c157, type: 3}
       propertyPath: explosionSound
       value: 
@@ -5833,6 +5833,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 621279179124594215, guid: 46e0b2377f62543bc8200ac1e44d52e2, type: 3}
+      propertyPath: m_Name
+      value: TrajectoryLine_1
+      objectReference: {fileID: 0}
     - target: {fileID: 1458301685189005981, guid: 46e0b2377f62543bc8200ac1e44d52e2, type: 3}
       propertyPath: m_Constraints
       value: 4
@@ -5849,6 +5853,10 @@ PrefabInstance:
       propertyPath: explosionEffect
       value: 
       objectReference: {fileID: 413820402}
+    - target: {fileID: 2869786479667951803, guid: 46e0b2377f62543bc8200ac1e44d52e2, type: 3}
+      propertyPath: m_Name
+      value: TouchPoint_1
+      objectReference: {fileID: 0}
     - target: {fileID: 4009676758031787965, guid: 46e0b2377f62543bc8200ac1e44d52e2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.5
@@ -5891,7 +5899,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4582104750599107383, guid: 46e0b2377f62543bc8200ac1e44d52e2, type: 3}
       propertyPath: m_Name
-      value: Ball
+      value: Ball_1
       objectReference: {fileID: 0}
     - target: {fileID: 4582104750599107383, guid: 46e0b2377f62543bc8200ac1e44d52e2, type: 3}
       propertyPath: m_IsActive
