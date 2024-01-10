@@ -69,7 +69,6 @@ public class GameManager : MonoBehaviour
 
     void PlayMusic()
     {
-        Debug.Log("PlayMusic");
         musicSource.clip = musicClip;
 
         if (PlayerPrefs.GetInt("Music") == 1)

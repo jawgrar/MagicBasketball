@@ -12,6 +12,13 @@ TagManager:
   - Score
   - Music1
   - ScoreCollider
+  - Ball2
+  - Ball3
+  - TouchPoint2
+  - TouchPoint3
+  - TrajectoryLine2
+  - TrajectoryLine3
+  - Ball1
   layers:
   - Default
   - TransparentFX

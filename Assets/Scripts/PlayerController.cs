@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -7,19 +9,51 @@ public class PlayerController : MonoBehaviour
     private Vector2 originalTouchPosition;
     private bool isPlayerBack = true;
     private bool isPlayerMoved = false;
-
-    public float forceMagnitude = 700f;
-    public GameObject explosionEffect;
+    private float forceMagnitude = 700f;
+    private GameObject currentBall;
     public LineRenderer lineRenderer;
     public GameObject touchPoint;
+    public GameObject explosionEffect;
     public AudioSource audioSource;
     public AudioClip explosionSound;
+    public GameObject ball1Prefab;
+    public GameObject ball2Prefab;
+
 
     void Start()
     {
+        AssignBall();
+
         originalPosition = transform.position;
         playerRigidbody = gameObject.GetComponent<Rigidbody2D>();
         originalTouchPosition = touchPoint.transform.position;
+    }
+
+    private void AssignBall()
+    {
+        // Assign the correct prefab based on PlayerPrefs
+        string ballName = PlayerPrefs.GetString("Ball", "Ball1");
+
+        // Deactivate the default ball
+        ball1Prefab.SetActive(false);
+
+        switch (ballName)
+        {
+            case "Ball1":
+                currentBall = ball1Prefab;
+                break;
+            case "Ball2":
+                currentBall = ball2Prefab;
+                break;
+            default:
+                currentBall = ball1Prefab;
+                break;
+        }
+
+        currentBall.SetActive(true);
+
+        // Instantiate the chosen prefab
+        // currentBall = Instantiate(ballPrefab, transform.position, Quaternion.identity);
     }
 
     void Update()
